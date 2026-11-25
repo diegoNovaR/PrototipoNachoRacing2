@@ -1,0 +1,84 @@
+/* CAPÍTULOS 01–04 — "Del bloque a la pista" */
+.chapters { position: relative; }
+.chapter {
+  position: relative;
+  padding: var(--section-y) var(--gutter);
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+}
+.chapter:nth-child(even) { background: var(--ink-2); }
+/* Línea diagonal de marca entre capítulos */
+.chapter::before {
+  content: ''; position: absolute; left: -10%; right: -10%; top: 0; height: 2px;
+  background: var(--brand-gradient); opacity: .5; transform: rotate(-1.2deg); transform-origin: left;
+}
+.ch-inner { max-width: 1280px; margin: 0 auto; display: grid; gap: 40px; align-items: center; }
+
+.ch-head { position: relative; z-index: 1; }
+.ch-num {
+  display: block; font-family: var(--font-display); line-height: .8;
+  font-size: clamp(5rem, 22vw, 14rem);
+  color: transparent; -webkit-text-stroke: 1.5px rgba(255, 255, 255, .18);
+  transform: skewX(var(--skew)); margin-bottom: -.32em;
+}
+.ch-title { font-size: var(--fs-h2); margin-bottom: 20px; }
+.chapter--desarmamos .ch-title, .chapter--competimos .ch-title { color: #fff; }
+.chapter--armamos .ch-title { color: var(--nr-blue-text); }
+.chapter--potenciamos .ch-title { color: var(--nr-red); }
+.ch-text { max-width: 30rem; font-size: var(--fs-lead); color: rgba(255, 255, 255, .78); margin-bottom: 24px; }
+.ch-cta {
+  display: inline-flex; gap: 8px; align-items: center; min-height: 44px;
+  font-size: .78rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; text-decoration: none;
+  color: #fff; border-bottom: 2px solid var(--nr-red); padding-bottom: 2px;
+}
+.ch-cta span { transition: transform .25s var(--ease); }
+.ch-cta:hover span { transform: translateX(4px); }
+
+/* Media */
+.ch-media { display: grid; gap: 14px; }
+.ch-fig { margin: 0; overflow: hidden; border-radius: var(--radius); background: var(--ink-3); }
+.ch-fig img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4 / 3; transition: transform .8s var(--ease); }
+.ch-fig:hover img { transform: scale(1.04); }
+.ch-media--2 { grid-template-columns: 1.35fr 1fr; align-items: end; }
+.ch-media--2 .ch-fig:last-child img { aspect-ratio: 3 / 4; }
+
+/* 03 Potenciamos: retrato con duotono rojo/azul */
+.chapter--potenciamos .ch-fig { position: relative; max-width: 460px; justify-self: center; }
+.chapter--potenciamos .ch-fig img { aspect-ratio: 3 / 4; }
+.chapter--potenciamos .ch-fig::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(160deg, rgba(255, 49, 49, .28), transparent 45%, rgba(32, 56, 200, .35));
+  mix-blend-mode: color;
+}
+
+/* 04 Competimos: logros + galería horizontal */
+.chapter--competimos .ch-inner { grid-template-columns: minmax(0, 1fr); }
+.achievements { display: grid; gap: 10px; margin-top: -8px; }
+.achievements li {
+  position: relative; padding: 14px 16px 14px 48px; border: 1px solid var(--line); border-radius: var(--radius);
+  background: rgba(255, 255, 255, .03); font-weight: 600; font-size: .95rem;
+}
+.achievements li::before {
+  content: ''; position: absolute; left: 18px; top: 50%; width: 14px; height: 22px; border-radius: 2px;
+  background: linear-gradient(var(--nr-red), var(--nr-blue)); transform: translateY(-50%) skewX(var(--skew));
+}
+.track {
+  display: grid; grid-auto-flow: column; grid-auto-columns: min(82vw, 520px); gap: 14px;
+  overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain;
+  margin: 0 calc(var(--gutter) * -1); padding: 0 var(--gutter) 10px;
+  scrollbar-width: thin; scrollbar-color: var(--nr-red) transparent;
+}
+.track-item { margin: 0; scroll-snap-align: start; border-radius: var(--radius); overflow: hidden; background: var(--ink-3); }
+.track-item img { width: 100%; height: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.track-hint { font-size: .7rem; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); }
+
+@media (min-width: 1024px) {
+  .ch-inner { grid-template-columns: 5fr 7fr; gap: 72px; }
+  .chapter.is-flip .ch-inner { grid-template-columns: 7fr 5fr; }
+  .chapter.is-flip .ch-head { order: 2; }
+  .chapter--competimos .ch-inner { grid-template-columns: 5fr 7fr; }
+  .chapter--competimos .track { grid-column: 1 / -1; grid-auto-columns: 520px; margin: 0; padding: 0 0 12px; }
+  .chapter--competimos .track-hint { grid-column: 1 / -1; }
+  /* 02 Armamos: texto fijo mientras pasan las fotos */
+  .chapter--armamos .ch-head { position: sticky; top: 120px; align-self: start; }
+}
