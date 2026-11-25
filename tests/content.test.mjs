@@ -7,7 +7,12 @@ const allImages = () => [
   ...content.chapters.flatMap(c => c.images),
   ...content.team.images,
   ...content.hero.stage,
+  ...content.workshop.images,
 ];
+
+test('workshop has enough photos for 3 columns', () => {
+  assert.ok(content.workshop.images.length >= 9);
+});
 
 test('chapters ids', () => {
   assert.deepStrictEqual(content.chapters.map(c => c.id), ['desarmamos', 'armamos', 'potenciamos', 'competimos']);

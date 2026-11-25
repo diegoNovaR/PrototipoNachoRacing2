@@ -36,9 +36,54 @@ function chapterBody(ch, achievements) {
   </div>`;
 }
 
+/** 01–03 en una sola pantalla fijada: el scroll avanza los pasos. */
+export function renderProcess(el, steps) {
+  el.innerHTML = `
+    <div class="process-pin">
+      <div class="process-copy">
+        <p class="eyebrow">Del bloque a la pista</p>
+        <ol class="process-steps">
+          ${steps.map((s, i) => `
+          <li class="step${i === 0 ? ' is-active' : ''}" id="${esc(s.id)}" data-step="${i}" data-wa-msg="${esc(s.waMessage)}">
+            <span class="step-num" aria-hidden="true">${esc(s.number)}</span>
+            <h2 class="step-title display step-title--${esc(s.id)}">${esc(s.title)}</h2>
+            <p class="step-text">${esc(s.text)}</p>
+            <a class="ch-cta" href="${waLink(s.waMessage)}" target="_blank" rel="noopener">Consultar por WhatsApp <span aria-hidden="true">→</span></a>
+            <figure class="step-img">${imgTag(s.images[0])}</figure>
+          </li>`).join('')}
+        </ol>
+        <div class="process-nav" aria-hidden="true">
+          ${steps.map((s, i) => `<span class="pn${i === 0 ? ' is-active' : ''}" data-step="${i}"><b>${esc(s.number)}</b>${esc(s.title)}</span>`).join('')}
+          <i class="process-bar"><i></i></i>
+        </div>
+      </div>
+      <div class="process-media" aria-hidden="true">
+        ${steps.map((s, i) => `<figure class="pm${i === 0 ? ' is-active' : ''}" data-step="${i}">${imgTag(s.images[0])}${s.images[1] ? imgTag(s.images[1], 'pm-inset') : ''}</figure>`).join('')}
+      </div>
+    </div>`;
+}
+
+/** Galería del taller: columnas que se mueven a distinta velocidad. */
+export function renderWorkshop(el, w) {
+  const cols = [[], [], [], []];
+  w.images.forEach((img, i) => cols[i % 4].push(img));
+  el.innerHTML = `
+    <div class="ws-head">
+      <p class="eyebrow">${esc(w.eyebrow)}</p>
+      <h2 class="display ws-title" id="taller-t">${esc(w.title)}</h2>
+      <p class="ws-text">${esc(w.text)}</p>
+    </div>
+    <div class="ws-wall">
+      ${cols.map((col, ci) => `<div class="ws-col" data-speed="${[-1, 1, -0.6, 0.8][ci]}">
+        ${col.map(i => `<figure class="ws-fig">${imgTag(i)}</figure>`).join('')}
+      </div>`).join('')}
+    </div>`;
+  el.setAttribute('aria-labelledby', 'taller-t');
+}
+
 export function renderChapters(el, chapters, achievements) {
-  el.innerHTML = chapters.map((ch, idx) => `
-    <section class="chapter chapter--${esc(ch.id)} ${idx % 2 && ch.id !== 'competimos' ? 'is-flip' : ''}" id="${esc(ch.id)}" data-wa-msg="${esc(ch.waMessage)}" aria-labelledby="${esc(ch.id)}-t">
+  el.innerHTML = chapters.map(ch => `
+    <section class="chapter chapter--${esc(ch.id)}" id="${esc(ch.id)}" data-wa-msg="${esc(ch.waMessage)}" aria-labelledby="${esc(ch.id)}-t">
       <div class="ch-inner">
         ${chapterHead(ch).replace('class="ch-title display"', `class="ch-title display" id="${esc(ch.id)}-t"`)}
         ${chapterBody(ch, achievements)}
@@ -116,7 +161,9 @@ export function renderFooter(el, c) {
 
 export function renderAll(c) {
   renderHero(c);
-  renderChapters(document.getElementById('capitulos'), c.chapters, c.achievements);
+  renderWorkshop(document.getElementById('taller'), c.workshop);
+  renderProcess(document.getElementById('proceso'), c.chapters.filter(ch => ch.id !== 'competimos'));
+  renderChapters(document.getElementById('capitulos'), c.chapters.filter(ch => ch.id === 'competimos'), c.achievements);
   renderTeam(document.getElementById('equipo'), c.team);
   renderVisit(document.getElementById('visitanos'), c);
   renderFooter(document.getElementById('footer'), c);

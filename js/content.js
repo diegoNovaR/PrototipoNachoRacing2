@@ -31,6 +31,25 @@ export const content = {
     { value: 'L–V', label: '9:00 – 18:00' },
   ],
   specialties: ['Subaru', 'EJ20 · EJ25 · FA20', 'EVO 4G63', 'Armado de motores', 'Turbo', 'Pista'],
+  workshop: {
+    eyebrow: 'El taller',
+    title: 'Donde los autos vuelven a rugir',
+    text: 'Nuestro taller en Sachaca: elevadores, bancos de armado y los autos de nuestros clientes en un solo lugar.',
+    images: [
+      img('taller-subarus', 'Subarus de clientes en los elevadores del taller'),
+      img('subaru-sti-celeste', 'Subaru Impreza STI celeste en el taller'),
+      img('taller-interior', 'Zona de armado de motores con soportes rojos'),
+      img('autos-taller-rojos', 'Autos deportivos estacionados en el taller Nacho Racing'),
+      img('evento-subaru', 'Subaru preparado por Nacho Racing en evento con público'),
+      img('taller-patio', 'Patio del taller con autos de clientes'),
+      img('subaru-gc8', 'Subaru Impreza GC8 plateado'),
+      img('taller-audi', 'Audi de clientes bajo el techo del taller'),
+      img('evento-morado', 'Auto morado en evento de autos'),
+      img('subaru-sti-plata', 'Subaru STI plateado con aros negros'),
+      img('taller-banco', 'Banco de trabajo con piezas y herramientas'),
+      img('rally-158', 'Auto de rally 158 en el taller'),
+    ],
+  },
   chapters: [
     {
       id: 'desarmamos', number: '01', title: 'Desarmamos',

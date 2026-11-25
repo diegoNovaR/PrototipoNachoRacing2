@@ -1,0 +1,84 @@
+/* EL TALLER — muro de fotos con columnas en paralaje */
+.workshop { position: relative; overflow: hidden; background: var(--ink); padding: var(--section-y) 0 0; }
+.ws-head { position: relative; z-index: 2; max-width: 1280px; margin: 0 auto; padding: 0 var(--gutter) 48px; }
+.ws-title { font-size: var(--fs-h2); margin: 10px 0 18px; }
+.ws-title em { font-style: normal; color: var(--nr-red); }
+.ws-text { max-width: 34rem; font-size: var(--fs-lead); color: rgba(255, 255, 255, .78); }
+.ws-wall {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px;
+  padding: 0 12px; height: clamp(520px, 120vh, 1100px); overflow: hidden;
+  -webkit-mask-image: linear-gradient(transparent, #000 10%, #000 85%, transparent);
+          mask-image: linear-gradient(transparent, #000 10%, #000 85%, transparent);
+}
+.ws-col { display: flex; flex-direction: column; gap: 12px; will-change: transform; }
+.ws-col[data-speed="1"] { margin-top: -18%; }
+.ws-fig { margin: 0; border-radius: var(--radius); overflow: hidden; background: var(--ink-3); position: relative; }
+.ws-fig img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; filter: saturate(.9) brightness(.85); transition: filter .5s, transform .8s var(--ease); }
+.ws-fig:nth-child(3n+2) img { aspect-ratio: 4 / 3; }
+.ws-fig:hover img { filter: none; transform: scale(1.05); }
+.ws-fig::after { content: ''; position: absolute; inset: 0; border: 1px solid rgba(255,255,255,.08); border-radius: inherit; pointer-events: none; }
+.ws-col:nth-child(4) { display: none; }
+@media (min-width: 1100px) {
+  .ws-wall { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; padding: 0 var(--gutter); height: clamp(620px, 105vh, 980px); max-width: 1600px; margin: 0 auto; }
+  .ws-col { gap: 18px; }
+  .ws-col:nth-child(4) { display: flex; }
+}
+@media (max-width: 599px) {
+  .ws-wall { grid-template-columns: repeat(2, minmax(0, 1fr)); height: 640px; }
+  .ws-col:nth-child(3) { display: none; }
+}
+
+/* PROCESO 01–03 — una pantalla fijada */
+.process { position: relative; background: var(--ink-2); border-top: 1px solid var(--line); }
+.process::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--brand-gradient); opacity: .6; }
+.process-pin { max-width: 1280px; margin: 0 auto; padding: var(--section-y) var(--gutter); display: grid; gap: 40px; }
+.process .eyebrow { margin-bottom: 22px; }
+.process-steps { display: grid; gap: 56px; }
+.step-num { display: block; font-family: var(--font-display); font-size: clamp(4rem, 16vw, 9rem); line-height: .8; color: transparent; -webkit-text-stroke: 1.5px rgba(255,255,255,.2); transform: skewX(var(--skew)); margin-bottom: -.3em; }
+.step-title { font-size: var(--fs-h2); margin-bottom: 16px; }
+.step-title--armamos { color: var(--nr-blue-text); }
+.step-title--potenciamos { color: var(--nr-red); }
+.step-text { max-width: 30rem; font-size: var(--fs-lead); color: rgba(255,255,255,.78); margin-bottom: 22px; }
+.step-img { margin: 24px 0 0; border-radius: var(--radius); overflow: hidden; }
+.step-img img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.process-nav, .process-media { display: none; }
+
+/* Modo fijado (escritorio con animaciones activas) */
+.process.is-pinned .process-pin { min-height: 100vh; padding-top: 110px; padding-bottom: 60px; grid-template-columns: 5fr 7fr; align-items: center; gap: 64px; }
+.process.is-pinned .process-steps { position: relative; display: block; min-height: 22rem; }
+.process.is-pinned .step { position: absolute; inset: 0 0 auto 0; opacity: 0; transform: translateY(30px); pointer-events: none; transition: opacity .5s var(--ease), transform .6s var(--ease); }
+.process.is-pinned .step.is-active { opacity: 1; transform: none; pointer-events: auto; }
+.process.is-pinned .step-img { display: none; }
+.process.is-pinned .process-nav { display: flex; flex-wrap: wrap; gap: 10px 26px; margin-top: 36px; position: relative; padding-top: 18px; }
+.pn { font-size: .72rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); transition: color .3s; }
+.pn b { font-family: var(--font-display); font-weight: 400; font-size: 1rem; margin-right: 8px; color: inherit; }
+.pn.is-active { color: #fff; }
+.pn.is-active b { color: var(--nr-red); }
+.process-bar { position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--line); }
+.process-bar i { position: absolute; inset: 0; transform-origin: left; transform: scaleX(0); background: linear-gradient(90deg, var(--nr-red), var(--nr-blue-text)); }
+
+.process.is-pinned .process-media { display: block; position: relative; height: min(72vh, 640px); }
+.pm { position: absolute; inset: 0; margin: 0; border-radius: 18px; overflow: hidden; clip-path: polygon(0 0, 0 0, 0 100%, 0 100%); transition: clip-path .9s var(--ease); }
+.pm.is-active, .pm.is-past { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+.pm.is-active { z-index: 2; }
+.pm > img:first-child { width: 100%; height: 100%; object-fit: cover; transform: scale(1.12); transition: transform 1.4s var(--ease); }
+.pm.is-active > img:first-child { transform: scale(1); }
+.pm-inset { position: absolute; right: 22px; bottom: 22px; width: 34%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 12px; border: 3px solid var(--ink-2); box-shadow: 0 20px 40px -20px #000; }
+.process.is-pinned .step-title { font-size: clamp(2.6rem, 5vw, 4.8rem); }
+
+/* Celular/tablet: los 3 pasos como tarjetas deslizables */
+@media (max-width: 899px) {
+  .process-pin { padding-left: 0; padding-right: 0; }
+  .process .eyebrow { padding: 0 var(--gutter); }
+  .process-steps {
+    display: grid; grid-auto-flow: column; grid-auto-columns: min(84vw, 420px); gap: 14px;
+    overflow-x: auto; scroll-snap-type: x mandatory; padding: 0 var(--gutter) 12px;
+    scrollbar-width: thin; scrollbar-color: var(--nr-red) transparent;
+  }
+  .step { scroll-snap-align: start; display: flex; flex-direction: column; background: var(--ink-3); border: 1px solid var(--line); border-radius: 18px; padding: 22px 20px 20px; }
+  .step-num { font-size: 4.2rem; }
+  .step-title { font-size: clamp(2.2rem, 10vw, 3rem); margin-bottom: 10px; }
+  .step-text { font-size: .98rem; margin-bottom: 14px; }
+  .step-img { order: -1; margin: -22px -20px 18px; border-radius: 18px 18px 0 0; }
+  .process-steps::after { content: ''; width: 1px; }
+}

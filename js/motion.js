@@ -40,6 +40,46 @@ export function initMotion() {
   });
   gsap.from('.achievements li', { x: -30, opacity: 0, stagger: .12, duration: .7, ease: 'power3.out', scrollTrigger: { trigger: '.achievements', start: 'top 85%' } });
 
+  // EL TALLER — columnas a distinta velocidad
+  gsap.from('.ws-head > *', { y: 40, opacity: 0, stagger: .1, duration: .9, ease: 'power3.out', scrollTrigger: { trigger: '.workshop', start: 'top 75%' } });
+  document.querySelectorAll('.ws-col').forEach(col => {
+    const s = parseFloat(col.dataset.speed) || 0;
+    gsap.fromTo(col, { yPercent: s * -12 }, { yPercent: s * 12, ease: 'none', scrollTrigger: { trigger: '.ws-wall', start: 'top bottom', end: 'bottom top', scrub: true } });
+  });
+  gsap.from('.ws-fig', { opacity: 0, scale: .9, duration: .8, stagger: .06, ease: 'power3.out', scrollTrigger: { trigger: '.ws-wall', start: 'top 85%' } });
+
+  // PROCESO 01–03 — pantalla fijada; el scroll avanza los pasos (solo escritorio)
+  const process = document.querySelector('.process');
+  ScrollTrigger.matchMedia({
+    '(min-width: 900px)': () => {
+      if (!process) return;
+      process.classList.add('is-pinned');
+      const steps = [...process.querySelectorAll('.step')];
+      const media = [...process.querySelectorAll('.pm')];
+      const navs = [...process.querySelectorAll('.pn')];
+      const n = steps.length;
+      const fab = document.getElementById('wa-fab');
+      let current = -1;
+      const setStep = i => {
+        if (i === current) return; current = i;
+        steps.forEach((el, k) => el.classList.toggle('is-active', k === i));
+        navs.forEach((el, k) => el.classList.toggle('is-active', k === i));
+        media.forEach((el, k) => { el.classList.toggle('is-active', k === i); el.classList.toggle('is-past', k < i); });
+        if (fab) fab.href = `https://wa.me/51957616607?text=${encodeURIComponent(steps[i].dataset.waMsg)}`;
+      };
+      setStep(0);
+      const st = ScrollTrigger.create({
+        trigger: process, start: 'top top', end: () => '+=' + window.innerHeight * (n - 0.2),
+        pin: '.process-pin', scrub: true,
+        onUpdate: self => {
+          setStep(Math.min(n - 1, Math.floor(self.progress * n)));
+          gsap.set('.process-bar i', { scaleX: self.progress });
+        },
+      });
+      return () => { st.kill(); process.classList.remove('is-pinned'); };
+    },
+  });
+
   // EQUIPO — foto grande con paralaje suave
   gsap.fromTo('.team-hero img', { yPercent: -8, scale: 1.1 }, { yPercent: 8, scale: 1, ease: 'none', scrollTrigger: { trigger: '.team-hero', start: 'top bottom', end: 'bottom top', scrub: true } });
   gsap.from('.team-copy > *, .team-mosaic figure', { y: 40, opacity: 0, stagger: .1, duration: .8, ease: 'power3.out', scrollTrigger: { trigger: '.team-grid', start: 'top 80%' } });
