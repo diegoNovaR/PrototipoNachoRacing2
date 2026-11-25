@@ -1,0 +1,53 @@
+/* SECCIONES CLARAS — Equipo y Visítanos (confianza) */
+.light { background: var(--paper); color: var(--ink); position: relative; }
+.light .eyebrow { color: var(--nr-red); margin-bottom: 14px; }
+.light-inner { max-width: 1280px; margin: 0 auto; padding: var(--section-y) var(--gutter); }
+
+/* 05 Equipo */
+.team-hero { margin: 0; position: relative; height: min(78vh, 760px); overflow: hidden; }
+.team-hero img { width: 100%; height: 100%; object-fit: cover; object-position: center 45%; }
+.team-hero::after { content: ''; position: absolute; inset: auto 0 0 0; height: 40%; background: linear-gradient(transparent, var(--paper)); }
+.team-grid { display: grid; gap: 40px; padding-top: 0; margin-top: -90px; position: relative; }
+.team-title { font-size: clamp(2.4rem, 7vw, 4.6rem); color: var(--ink); margin-bottom: 18px; }
+.team-title::after { content: ''; display: block; width: 90px; height: 5px; margin-top: 18px; background: var(--brand-gradient); }
+.team-text { max-width: 30rem; font-size: var(--fs-lead); color: var(--muted-dark); }
+.team-mosaic { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.team-mosaic figure { margin: 0; border-radius: var(--radius); overflow: hidden; box-shadow: 0 24px 50px -30px rgba(10, 12, 16, .5); }
+.team-mosaic img { width: 100%; height: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+.team-mosaic figure:nth-child(2) { transform: translateY(32px); }
+
+/* 06 Visítanos — tarjeta tipo pase de pits */
+.visit { border-top: 1px solid rgba(10, 12, 16, .08); }
+.visit-grid { display: grid; gap: 24px; }
+.pass {
+  position: relative; background: #fff; border-radius: 22px; padding: clamp(22px, 4vw, 40px);
+  box-shadow: 0 30px 60px -36px rgba(10, 12, 16, .45); border: 1px solid rgba(10, 12, 16, .06);
+  overflow: hidden;
+}
+.pass::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: linear-gradient(var(--nr-red), #fff 50%, var(--nr-blue-deep)); }
+.pass-top { display: flex; justify-content: space-between; align-items: center; }
+.pass-top img { border-radius: 10px; }
+.visit-title { font-size: clamp(2.2rem, 7vw, 4rem); color: var(--ink); margin: 6px 0 24px; }
+.pass-data { margin: 0 0 28px; display: grid; gap: 16px; }
+.pass-data div { border-top: 1px dashed rgba(10, 12, 16, .18); padding-top: 12px; }
+.pass-data dt { font-size: .68rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--nr-blue); margin-bottom: 4px; }
+.pass-data dd { margin: 0; font-weight: 600; font-size: 1.02rem; }
+.pass-ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+.map { border-radius: 22px; overflow: hidden; min-height: 340px; background: #dfe3ea; }
+.map iframe { width: 100%; height: 100%; min-height: 340px; border: 0; display: block; filter: grayscale(.25) contrast(1.05); }
+
+@media (min-width: 900px) {
+  .team-grid { grid-template-columns: 5fr 7fr; align-items: center; gap: 72px; }
+  .visit-grid { grid-template-columns: 5fr 6fr; align-items: stretch; }
+}
+
+/* Footer */
+.footer {
+  background: var(--ink); border-top: 4px solid transparent;
+  border-image: var(--brand-gradient) 1;
+  padding: 56px var(--gutter) calc(var(--fab) + 48px + env(safe-area-inset-bottom));
+}
+.footer-inner { max-width: 1280px; margin: 0 auto; display: grid; gap: 14px; justify-items: start; }
+.footer-motto { color: rgba(255, 255, 255, .75); }
+.footer-fb { font-weight: 600; color: var(--nr-blue-text); }
+.footer-copy { font-size: var(--fs-small); color: var(--muted); }

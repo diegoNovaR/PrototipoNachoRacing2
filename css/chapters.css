@@ -76,7 +76,8 @@
   .ch-inner { grid-template-columns: 5fr 7fr; gap: 72px; }
   .chapter.is-flip .ch-inner { grid-template-columns: 7fr 5fr; }
   .chapter.is-flip .ch-head { order: 2; }
-  .chapter--competimos .ch-inner { grid-template-columns: 5fr 7fr; }
+  .chapter--competimos .ch-inner { grid-template-columns: 5fr 7fr; align-items: end; }
+  .chapter--competimos .achievements { margin-top: 0; }
   .chapter--competimos .track { grid-column: 1 / -1; grid-auto-columns: 520px; margin: 0; padding: 0 0 12px; }
   .chapter--competimos .track-hint { grid-column: 1 / -1; }
   /* 02 Armamos: texto fijo mientras pasan las fotos */
