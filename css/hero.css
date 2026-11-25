@@ -1,0 +1,64 @@
+/* HERO — escenario del motor bóxer */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex; align-items: flex-end;
+  padding: 120px var(--gutter) clamp(64px, 10vh, 110px);
+  overflow: hidden;
+  isolation: isolate;
+}
+.hero-stage { position: absolute; inset: 0; z-index: -1; }
+.stage-layer {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: center 40%;
+  filter: saturate(.85) contrast(1.08) brightness(.62);
+}
+.stage-layer[data-stage="built"] { opacity: 0; }
+.stage-glow {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(60% 55% at 0% 100%, rgba(255, 49, 49, .38), transparent 70%),
+    radial-gradient(55% 60% at 100% 20%, rgba(32, 56, 200, .45), transparent 70%),
+    linear-gradient(180deg, rgba(10,12,16,.55) 0%, rgba(10,12,16,.2) 35%, rgba(10,12,16,.92) 88%, var(--ink) 100%);
+}
+
+.hero-content { position: relative; width: 100%; max-width: 1280px; margin: 0 auto; }
+.hero .eyebrow { margin-bottom: 18px; }
+.hero-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-hero);
+  line-height: .86;
+  text-transform: uppercase;
+  transform: skewX(var(--skew));
+  transform-origin: left bottom;
+  margin-bottom: 26px;
+}
+.hero-title span { display: block; }
+.t-solid { color: #fff; }
+.t-outline { color: transparent; -webkit-text-stroke: 2px #fff; }
+@supports not (-webkit-text-stroke: 2px #fff) { .t-outline { color: var(--nr-red); } }
+
+.hero-lead { max-width: 34rem; font-size: var(--fs-lead); color: rgba(255, 255, 255, .82); margin-bottom: 30px; }
+.hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 44px; }
+
+.hero-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; max-width: 640px; border-top: 1px solid var(--line); padding-top: 20px; }
+.hero-stats li b { display: block; font-family: var(--font-display); font-weight: 400; font-size: clamp(1.4rem, 4.5vw, 2.1rem); color: var(--nr-red); line-height: 1; transform: skewX(var(--skew)); }
+.hero-stats li span { display: block; margin-top: 6px; font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); line-height: 1.35; }
+
+.hero-scroll {
+  position: absolute; right: var(--gutter); bottom: 120px;
+  display: none; align-items: center; gap: 10px;
+  writing-mode: vertical-rl; font-size: .68rem; letter-spacing: .3em; text-transform: uppercase; color: var(--muted);
+}
+.hero-scroll span { width: 1px; height: 56px; background: linear-gradient(var(--nr-red), transparent); }
+@media (min-width: 900px) { .hero-scroll { display: flex; } }
+
+.brand-line { position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: var(--brand-gradient); }
+
+/* Cinta de especialidades */
+.marquee { overflow: hidden; background: var(--ink-2); border-bottom: 1px solid var(--line); padding: 18px 0; }
+.marquee-track { display: flex; width: max-content; gap: 36px; animation: marquee 32s linear infinite; }
+.marquee-track span { font-family: var(--font-display); font-size: clamp(1.1rem, 3vw, 1.6rem); text-transform: uppercase; letter-spacing: .04em; white-space: nowrap; color: rgba(255,255,255,.88); display: flex; align-items: center; gap: 36px; }
+.marquee-track span::after { content: '✦'; color: var(--nr-red); font-size: .8em; }
+.marquee-track span:nth-child(even)::after { color: var(--nr-blue-text); }
+@keyframes marquee { to { transform: translateX(-50%); } }

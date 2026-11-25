@@ -24,7 +24,7 @@ export const content = {
     mapsQuery: 'Carretera Variante de Uchumayo km 1.5, Sachaca, Arequipa, Perú',
   },
   stats: [
-    { value: '1er', label: 'Puesto · Copa RPG Piques Legales 2023' },
+    { value: '1er', label: 'Puesto · Copa RPG Piques 2023' },
     { value: '2.9K', label: 'Seguidores en Facebook' },
     { value: 'L–V', label: '9:00 – 18:00' },
   ],

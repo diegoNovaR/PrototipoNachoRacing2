@@ -1,0 +1,96 @@
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--nr-white);
+  font: 400 var(--fs-body)/1.6 var(--font-body);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+h1, h2, h3 { margin: 0; font-weight: 400; }
+p { margin: 0; }
+ul { margin: 0; padding: 0; list-style: none; }
+
+.skip { position: absolute; left: -999px; top: 8px; z-index: 100; background: #fff; color: #000; padding: 8px 12px; }
+.skip:focus { left: 8px; }
+:focus-visible { outline: 2px solid var(--nr-blue-text); outline-offset: 3px; }
+
+.display {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: .01em;
+  line-height: .9;
+  transform: skewX(var(--skew));
+}
+.eyebrow {
+  font-size: var(--fs-small);
+  font-weight: 600;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--nr-red);
+}
+
+/* Botones */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .5em;
+  min-height: 48px; padding: 0 1.5rem;
+  border-radius: 999px; border: 1px solid transparent;
+  font: 700 .85rem/1 var(--font-body); letter-spacing: .08em; text-transform: uppercase;
+  text-decoration: none; cursor: pointer;
+  transition: transform .25s var(--ease), background .25s, border-color .25s, color .25s;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-red { background: var(--nr-red); color: #fff; box-shadow: 0 10px 30px -10px rgba(255, 49, 49, .7); }
+.btn-red:hover { background: var(--nr-red-dark); }
+.btn-ghost { border-color: rgba(255, 255, 255, .35); color: #fff; backdrop-filter: blur(6px); }
+.btn-ghost:hover { border-color: #fff; }
+.btn-blue { background: var(--nr-blue); color: #fff; }
+.btn-blue:hover { background: var(--nr-blue-deep); }
+.btn-sm { min-height: 40px; padding: 0 1.1rem; font-size: .75rem; }
+
+/* Barra superior */
+.topbar {
+  position: fixed; inset: 0 0 auto 0; z-index: 50;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 14px var(--gutter);
+  padding-top: calc(14px + env(safe-area-inset-top));
+  transition: background .3s, backdrop-filter .3s, padding .3s;
+}
+.topbar.is-scrolled { background: rgba(10, 12, 16, .78); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.brand img { border-radius: 9px; }
+.brand-word { font-family: var(--font-display); font-size: 1.25rem; letter-spacing: .04em; transform: skewX(var(--skew)); }
+.brand-word b { font-weight: 400; color: #fff; }
+.brand-word i { font-style: normal; color: var(--nr-red); }
+.nav { display: none; gap: 32px; }
+.nav a { font-size: .78rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; text-decoration: none; color: rgba(255,255,255,.75); }
+.nav a:hover { color: #fff; }
+@media (min-width: 900px) { .nav { display: flex; } }
+
+/* Botón flotante WhatsApp */
+.wa-fab {
+  position: fixed; z-index: 60;
+  right: calc(16px + env(safe-area-inset-right));
+  bottom: calc(16px + env(safe-area-inset-bottom));
+  display: flex; align-items: center; gap: 10px;
+  height: var(--fab); min-width: var(--fab); padding: 0 16px;
+  border-radius: 999px; background: var(--wa); color: #fff;
+  text-decoration: none; font-weight: 700; font-size: .9rem;
+  box-shadow: 0 12px 32px -8px rgba(37, 211, 102, .6);
+  transition: transform .25s var(--ease);
+}
+.wa-fab:hover { transform: scale(1.05); }
+.wa-fab::before {
+  content: ''; position: absolute; inset: 0; border-radius: inherit;
+  box-shadow: 0 0 0 0 rgba(37, 211, 102, .55); animation: wa-pulse 2.6s infinite;
+}
+@keyframes wa-pulse { 70% { box-shadow: 0 0 0 16px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
+@media (max-width: 420px) { .wa-fab-label { display: none; } .wa-fab { padding: 0; justify-content: center; } }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
