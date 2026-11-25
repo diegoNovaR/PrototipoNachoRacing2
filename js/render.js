@@ -75,8 +75,8 @@ export function renderTeam(el, team) {
 
 export function renderVisit(el, c) {
   const k = c.contact;
-  const maps = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(k.mapsQuery);
-  const embed = 'https://www.google.com/maps?output=embed&q=' + encodeURIComponent(k.mapsQuery);
+  const maps = k.mapsUrl;
+  const embed = 'https://www.google.com/maps?output=embed&z=16&q=' + encodeURIComponent(k.mapsCoords + ' (Nacho Racing)');
   el.dataset.waMsg = 'Hola Nacho Racing, quiero agendar una visita al taller';
   el.setAttribute('aria-labelledby', 'visitanos-t');
   el.innerHTML = `

@@ -21,7 +21,9 @@ export const content = {
     reference: 'A la derecha del grifo Petroamérica · frente a Cruz del Sur',
     hours: 'Lunes a viernes · 9:00 – 18:00',
     facebook: 'https://www.facebook.com/profile.php?id=100063466035254',
-    mapsQuery: 'Carretera Variante de Uchumayo km 1.5, Sachaca, Arequipa, Perú',
+    mapsQuery: 'NACHO RACING, Sachaca, Arequipa',
+    mapsCoords: '-16.4076536,-71.5615751',
+    mapsUrl: 'https://www.google.com/maps/place/NACHO+RACING/@-16.4076536,-71.5615751,17z/data=!4m6!3m5!1s0x91424bc4501f5291:0x37516992ad557288!8m2!3d-16.4076536!4d-71.5615751',
   },
   stats: [
     { value: '1er', label: 'Puesto · Copa RPG Piques 2023' },
